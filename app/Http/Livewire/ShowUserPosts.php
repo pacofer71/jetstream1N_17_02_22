@@ -12,7 +12,7 @@ class ShowUserPosts extends Component
     use WithFileUploads;
 
     public $campo='id', $orden='desc';
-    public $isOpen=false;
+    public $isOpen=false, $isOpenShow=false;
     public Post $post;
     public $image;
 
@@ -75,4 +75,17 @@ class ShowUserPosts extends Component
 
 
     }
+    
+    public function show(Post $post){
+        $this->post=$post;
+        $this->isOpenShow=true;
+    }
+
+    public function cambiarStatus(Post $post){
+        $this->post=$post;
+        $this->post->status=($this->post->status==1) ? 2 : 1;
+        $this->post->save();
+        $this->emit('info', "Se ha cambiado el estado del post");
+    }
+
 }

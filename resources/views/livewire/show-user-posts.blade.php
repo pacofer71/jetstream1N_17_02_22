@@ -29,7 +29,8 @@
 
                     @foreach ($posts as $item)
                         <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><i class='fas fa-info'></i>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                <button wire:click="show({{$item}})" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"><i class='fas fa-info'></i></button>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $item->id }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">
@@ -47,7 +48,7 @@
 
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span
-                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full text-white
+                                    wire:click="cambiarStatus({{$item}})" class="cursor-pointer px-2 inline-flex text-xs leading-5 font-semibold rounded-full text-white
                       @if ($item->status == 1) bg-red-500 @else bg-green-500 @endif">
                                     @if ($item->status == 1)
                                     Borrador @else Publicado
@@ -119,4 +120,38 @@
 
     </x-jet-dialog-modal>
     <!------------------- Fin ventana modal ------------------------>
+    <!--- Ventana Modal para ver detalle ---------------------------------------------------------------------->
+    <x-jet-dialog-modal wire:model="isOpenShow">
+        <x-slot name="title">
+            <img src="{{{Storage::url($post->image)}}}" class="object-cover object-center w-full h-full">
+        </x-slot>
+        <x-slot name="content">
+         <div class="mx-auto text-indigo-700 font-bold w-full p-2 text-xxl">
+             {{$post->titulo}}
+         </div>
+         <div class="mt-2 italic text-gray-500 text-lg">
+             {{$post->contenido}}
+         </div>
+         <div class="mt-4">
+             <p><span class="font-bold">Creado:</span> {{$post->created_at}}</p>
+         </div>
+         <div class="mt-4">
+             <p><span class="font-bold">Estado: </span>
+            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full text-white
+                      @if ($post->status == 1) bg-red-500 @else bg-green-500 @endif">
+                                    @if ($post->status == 1)
+                                    Borrador @else Publicado
+                                    @endif
+            </span></p>
+        </div>
+
+        </x-slot>
+        <x-slot name="footer">
+            <button wire:click="$set('isOpenShow', false)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <i class="fa-solid fa-xmark"></i> Cerrar</button>
+        </x-slot>
+
+    </x-jet-dialog-modal>
+
+    <!--            POSTS --> 
 </div>
