@@ -1,4 +1,5 @@
 <x-app-layout>
+<x-alertas />
 
 
     <div class="py-6">

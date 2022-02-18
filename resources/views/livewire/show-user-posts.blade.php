@@ -123,7 +123,7 @@
     <!--- Ventana Modal para ver detalle ---------------------------------------------------------------------->
     <x-jet-dialog-modal wire:model="isOpenShow">
         <x-slot name="title">
-            <img src="{{{Storage::url($post->image)}}}" class="object-cover object-center w-full h-full">
+            <img src="{{{Storage::url($post->image)}}}" class="mx-auto object-cover object-center w-100 h-100">
         </x-slot>
         <x-slot name="content">
          <div class="mx-auto text-indigo-700 font-bold w-full p-2 text-xxl">
