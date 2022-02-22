@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ContactoController;
+use App\Http\Controllers\Oath\GitHubController;
 use App\Http\Livewire\ShowUserPosts;
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
@@ -31,3 +32,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('userposts', ShowUserPosts:
 //rutas para el formulario de contacto
 Route::middleware(['auth:sanctum', 'verified'])->get('contacto', [ContactoController::class, 'pintarFormulario'])->name('contacto.pintar');
 Route::middleware(['auth:sanctum', 'verified'])->post('contacto', [ContactoController::class, 'procesarFormulario'])->name('contacto.procesar');
+//Rutas para oath de github
+Route::get('auth/github/redirect', [GitHubController::class, 'redirect'])
+    ->name('github.redirect');
+Route::get('auth/github/callback', [GitHubController::class, 'callback'])
+    ->name('github.callback');
